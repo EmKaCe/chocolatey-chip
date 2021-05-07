@@ -5,6 +5,7 @@ import PackageSelection from "./PackageSelection";
 import Navbar from "./Navbar";
 import SummaryDrawer from "./SummaryDrawer";
 import Summary from "./Summary";
+import Overlay from "./Overlay";
 
 const App = () => {
 	const darkTheme = createMuiTheme({
@@ -39,6 +40,7 @@ const App = () => {
 	return (
 		<ThemeProvider theme={darkTheme}>
 			<CssBaseline />
+			<Overlay currentStep={step} />
 			<Grid
 				container
 				direction="column"
@@ -57,7 +59,7 @@ const App = () => {
 				>
 					<Summary handlePackageClick={toggleChocoPackage} packages={chocoPackages} />
 				</SummaryDrawer>
-				<PackageSelection handlePackageClick={toggleChocoPackage} selectedPackages={chocoPackages} />
+				{step == 1 ? (<PackageSelection handlePackageClick={toggleChocoPackage} selectedPackages={chocoPackages} />) : null}
 			</Grid>
 		</ThemeProvider>
 	);

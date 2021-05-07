@@ -23,7 +23,9 @@ const Navbar = (props) => {
 					<NavigateBefore />
 				</IconButton>
 				<Typography variant="h6" className={classes.title}>
-					Step {props.step}/3: Software Selection
+					{props.step == 1 ? "Step 1/3: Software Selection" : null}
+					{props.step == 2 ? "Step 2/3: Office" : null}
+					{props.step == 3 ? "Step 3/3: Privacy" : null}
 				</Typography>
 				<IconButton color="inherit" className={classes.listButton} onClick={() => props.setOpenDrawer(true)}>
 					<Badge badgeContent={props.packages.length} color="secondary">
