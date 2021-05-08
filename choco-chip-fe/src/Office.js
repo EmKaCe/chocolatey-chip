@@ -6,7 +6,7 @@ const useStyles = makeStyles({
 	paper: {
 		margin: "3em",
 		padding: "2em",
-		minWidth: "800px"
+		width: "800px"
 	},
 	packageSelector: {
 		marginLeft: "20%",

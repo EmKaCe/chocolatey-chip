@@ -76,7 +76,12 @@ const App = () => {
 						privacySettings={privacySettings}
 					/>
 				</SummaryDrawer>
-				{step == 1 ? (<PackageSelection handlePackageClick={toggleChocoPackage} selectedPackages={chocoPackages} />) : null}
+				{step == 1 ? (
+					<PackageSelection
+						handlePackageClick={toggleChocoPackage}
+						selectedPackages={chocoPackages}
+					/>
+				) : null}
 				{step == 2 ? (
 					<Office
 						changePackageSelection={setOfficeSelection}

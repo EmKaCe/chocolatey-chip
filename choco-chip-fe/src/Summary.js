@@ -20,11 +20,12 @@ const useStyles = makeStyles((theme) => ({
 		width: theme.spacing(6)
 	},
 	listDivider: {
-		height: "1.5px",
 		backgroundColor: theme.palette.primary.light
 	},
 	subheader: {
+		color: theme.palette.text.primary,
 		fontSize: "1.5em",
+		position: "inherit",
 		textAlign: "center"
 	}
 }));
@@ -75,7 +76,7 @@ const Summary = (props) => {
 					);
 				})}
 				{props.packages.length == 0 ? (
-					<ListItem key="noPackages">
+					<ListItem key="noPackages" divider={false}>
 						<ListItemText primary="No packages selected." />
 					</ListItem>
 				) : null}

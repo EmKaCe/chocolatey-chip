@@ -9,12 +9,12 @@ const useStyles = makeStyles({
 	searchRoot: {
 		margin: "3em",
 		padding: "2em",
-		minWidth: "800px"
+		width: "800px"
 	},
 	searchResultBox: {
 		margin: "3em",
 		padding: "2em",
-		minWidth: "800px"
+		width: "800px"
 	}
 });
 
