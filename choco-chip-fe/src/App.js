@@ -6,6 +6,7 @@ import Navbar from "./Navbar";
 import SummaryDrawer from "./SummaryDrawer";
 import Summary from "./Summary";
 import Overlay from "./Overlay";
+import Office from "./Office";
 
 const App = () => {
 	const darkTheme = createMuiTheme({
@@ -34,6 +35,10 @@ const App = () => {
 		setChocoPackages(newChocoPackages);
 	};
 
+	const [installOffice, setInstallOffice] = React.useState(false);
+	const officePackages = ["Access", "Excel", "Groove", "Lync", "OneDrive", "OneNote", "Outlook", "PowerPoint", "Publisher", "Word"];
+	const [officeSelection, setOfficeSelection] = React.useState([false, true, false, false, false, false, true, true, false, true]);
+
 	const [openDrawer, setOpenDrawer] = React.useState(false);
 	const [step, setStep] = React.useState(1);
 
@@ -60,6 +65,15 @@ const App = () => {
 					<Summary handlePackageClick={toggleChocoPackage} packages={chocoPackages} />
 				</SummaryDrawer>
 				{step == 1 ? (<PackageSelection handlePackageClick={toggleChocoPackage} selectedPackages={chocoPackages} />) : null}
+				{step == 2 ? (
+					<Office
+						changePackageSelection={setOfficeSelection}
+						packageNames={officePackages}
+						packageSelection={officeSelection}
+						toInstall={installOffice}
+						toggleInstall={setInstallOffice}
+					/>
+				) : null}
 			</Grid>
 		</ThemeProvider>
 	);
