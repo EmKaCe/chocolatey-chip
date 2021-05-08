@@ -7,6 +7,7 @@ import SummaryDrawer from "./SummaryDrawer";
 import Summary from "./Summary";
 import Overlay from "./Overlay";
 import Office from "./Office";
+import Privacy from "./Privacy";
 
 const App = () => {
 	const darkTheme = createMuiTheme({
@@ -38,6 +39,9 @@ const App = () => {
 	const [installOffice, setInstallOffice] = React.useState(false);
 	const officePackages = ["Access", "Excel", "Groove", "Lync", "OneDrive", "OneNote", "Outlook", "PowerPoint", "Publisher", "Word"];
 	const [officeSelection, setOfficeSelection] = React.useState([false, true, false, false, false, false, true, true, false, true]);
+
+	const privacySettingNames = ["Apply recommended privacy settings?", "Remove bloatware apps?", "Uninstall OneDrive?"];
+	const [privacySettings, setPrivacySettings] = React.useState([true, true, true]);
 
 	const [openDrawer, setOpenDrawer] = React.useState(false);
 	const [step, setStep] = React.useState(1);
@@ -73,6 +77,15 @@ const App = () => {
 						toInstall={installOffice}
 						toggleInstall={setInstallOffice}
 					/>
+				) : null}
+				{step == 3 ? (
+					<div>
+						<Privacy
+							changeSettings={setPrivacySettings}
+							settings={privacySettings}
+							settingNames={privacySettingNames}
+						/>
+					</div>
 				) : null}
 			</Grid>
 		</ThemeProvider>
