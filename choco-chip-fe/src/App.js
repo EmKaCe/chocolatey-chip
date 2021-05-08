@@ -37,7 +37,7 @@ const App = () => {
 		setChocoPackages(newChocoPackages);
 	};
 
-	const [installOffice, setInstallOffice] = React.useState(false);
+	const [installOffice, setInstallOffice] = React.useState(true);
 	const officePackages = ["Access", "Excel", "Groove", "Lync", "OneDrive", "OneNote", "Outlook", "PowerPoint", "Publisher", "Word"];
 	const [officeSelection, setOfficeSelection] = React.useState([false, true, false, false, false, false, true, true, false, true]);
 
@@ -88,7 +88,7 @@ const App = () => {
 						/>
 						<Generator
 							chocoPackages={chocoPackages}
-							officeSettings={officeSelection}
+							officeSettings={installOffice ? officeSelection : []}
 							privacySettings={privacySettings}
 						/>
 					</div>
