@@ -32,11 +32,11 @@ app.get("/search/:query", (req, res) => {
 	}
 });
 
-app.get("/generate", (req, res) => {
+app.post("/generate", (req, res) => {
 	const host = `${req.protocol}://${req.hostname}`;
-	if (req.body.chocolatey && req.body.office && req.body.privacy) {
+	if (req.body.data.chocolatey && req.body.data.office && req.body.data.privacy) {
 		try {
-			const script = createScript.generateAll(host, req.body.chocolatey, req.body.office, req.body.privacy);
+			const script = createScript.generateAll(host, req.body.data.chocolatey, req.body.data.office, req.body.data.privacy);
 			res.type("text/plain").status(200).send(script);
 		} catch (e) {
 			res.status(400).send(`Bad ${e} configuration.`);

@@ -8,6 +8,7 @@ import Summary from "./Summary";
 import Overlay from "./Overlay";
 import Office from "./Office";
 import Privacy from "./Privacy";
+import Generator from "./Generator";
 
 const App = () => {
 	const darkTheme = createMuiTheme({
@@ -84,6 +85,11 @@ const App = () => {
 							changeSettings={setPrivacySettings}
 							settings={privacySettings}
 							settingNames={privacySettingNames}
+						/>
+						<Generator
+							chocoPackages={chocoPackages}
+							officeSettings={officeSelection}
+							privacySettings={privacySettings}
 						/>
 					</div>
 				) : null}
