@@ -67,7 +67,14 @@ const App = () => {
 					open={openDrawer}
 					setOpen={setOpenDrawer}
 				>
-					<Summary handlePackageClick={toggleChocoPackage} packages={chocoPackages} />
+					<Summary
+						handlePackageClick={toggleChocoPackage}
+						packages={chocoPackages}
+						installOffice={installOffice}
+						officePackages={officePackages}
+						officeSelection={officeSelection}
+						privacySettings={privacySettings}
+					/>
 				</SummaryDrawer>
 				{step == 1 ? (<PackageSelection handlePackageClick={toggleChocoPackage} selectedPackages={chocoPackages} />) : null}
 				{step == 2 ? (

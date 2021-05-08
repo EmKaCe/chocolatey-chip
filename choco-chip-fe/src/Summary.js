@@ -32,9 +32,22 @@ const useStyles = makeStyles((theme) => ({
 const Summary = (props) => {
 	const classes = useStyles();
 
+	const [privacySettingsCount, setPrivacySettingsCount] = React.useState(0);
+	let counted = 0;
+
+	React.useEffect(() => {
+		let newCount = 0;
+		props.privacySettings.forEach((element) => {
+			if (element) {
+				newCount++;
+			}
+		});
+		setPrivacySettingsCount(newCount);
+	}, [props.privacySettings]);
+
 	return (
 		<div className={classes.root}>
-			<List subheader={<ListSubheader className={classes.subheader} component="div">Packages to install</ListSubheader>}>
+			<List subheader={<ListSubheader className={classes.subheader} component="div">Packages to install:</ListSubheader>}>
 				{props.packages.map((element, index) => {
 					return (
 						<ListItem key={element.packageName} divider={index !== props.packages.length - 1}>
@@ -68,13 +81,69 @@ const Summary = (props) => {
 				) : null}
 			</List>
 			<Divider className={classes.listDivider} />
-		</div>
+			<List subheader={<ListSubheader className={classes.subheader} component="div">Office configuration:</ListSubheader>}>
+				{props.installOffice ?
+					props.officePackages.map((element, index) => {
+						return (
+							props.officeSelection[index] ? (
+								<ListItem key={element} divider={index !== props.officePackages.length - 1}>
+									<ListItemText primary={element} />
+								</ListItem>
+							) : null
+						);
+					})
+					: (
+						<ListItem key="noOffice">
+							<ListItemText primary="Don't install office." />
+						</ListItem>
+					)
+				}
+			</List>
+			<Divider className={classes.listDivider} />
+			<List subheader={<ListSubheader className={classes.subheader} component="div">Privacy Settings:</ListSubheader>}>
+				{props.privacySettings.map((element, index) => {
+					if (element) {
+						counted++;
+						if (index == 0) {
+							return (
+								<ListItem divider={counted < privacySettingsCount}>
+									<ListItemText primary={"Recommended privacy settings"} />
+								</ListItem>
+							);
+						}
+						if (index == 1) {
+							return (
+								<ListItem divider={counted < privacySettingsCount}>
+									<ListItemText primary={"Remove bloatware"} />
+								</ListItem>
+							);
+						}
+						if (index == 2) {
+							return (
+								<ListItem divider={counted < privacySettingsCount}>
+									<ListItemText primary={"Uninstall OneDrive"} />
+								</ListItem>
+							);
+						}
+					}
+				})}
+				{privacySettingsCount == 0 ? (
+					<ListItem key="noPrivacy">
+						<ListItemText primary="Don't apply any privacy settings." />
+					</ListItem>
+				) : null}
+			</List>
+		</div >
 	);
 };
 
 Summary.propTypes = {
 	handlePackageClick: PropTypes.func,
-	packages: PropTypes.array
+	packages: PropTypes.array,
+	installOffice: PropTypes.bool,
+	officePackages: PropTypes.array,
+	officeSelection: PropTypes.array,
+	privacySettings: PropTypes.array
 };
 
 export default Summary;
