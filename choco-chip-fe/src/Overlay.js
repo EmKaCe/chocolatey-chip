@@ -10,17 +10,12 @@ const useStyles = makeStyles({
 		width: "100%",
 		transition: [["opacity", "500ms"], ["zIndex", "500ms"]]
 	},
-	"@keyframes text-pop-up-top": {
+	"@keyframes text-grow": {
 		from: {
-			transform: "translateY(0)",
-			transformOrigin: "50% 50%",
-			textShadow: "none"
+			clipPath: "polygon(50% 100%,50% 0,50% 0,50% 100%)"
 		},
 		to: {
-
-			transform: "translateY(-50px)",
-			transformOrigin: "50% 50%",
-			textShadow: "0 1px 0 #cccccc, 0 2px 0 #cccccc, 0 3px 0 #cccccc, 0 4px 0 #cccccc, 0 5px 0 #cccccc, 0 50px 30px rgba(0, 0, 0, 0.3)"
+			clipPath: "polygon(0 100%, 0 0, 100% 0, 100% 100%)"
 		}
 	},
 	"@keyframes icon-pop-up-top": {
@@ -30,12 +25,12 @@ const useStyles = makeStyles({
 		},
 		to: {
 
-			transform: "translateY(-50px)",
+			transform: "translateY(-30px)",
 			transformOrigin: "50% 50%",
 		}
 	},
-	textPopupTop: {
-		animation: "$text-pop-up-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both"
+	textGrow: {
+		animation: "$text-grow 0.5s ease-in both"
 	},
 	icon: {
 		fontSize: "200px",
@@ -102,7 +97,7 @@ const Overlay = (props) => {
 					alignItems="center"
 				>
 					<Storage className={classes.icon} />
-					<Typography className={classes.textPopupTop} variant="h3">Step 1: Software Selection</Typography>
+					<Typography className={classes.textGrow} variant="h3">Step 1: Software Selection</Typography>
 				</Grid>
 			) : null}
 			{props.currentStep == 2 ? (
@@ -112,7 +107,7 @@ const Overlay = (props) => {
 					alignItems="center"
 				>
 					<Description className={classes.icon} />
-					<Typography className={classes.textPopupTop} variant="h3">Step 2: Office</Typography>
+					<Typography className={classes.textGrow} variant="h3">Step 2: Office</Typography>
 				</Grid>
 			) : null}
 			{props.currentStep == 3 ? (
@@ -122,7 +117,7 @@ const Overlay = (props) => {
 					alignItems="center"
 				>
 					<VisibilityOff className={classes.icon} />
-					<Typography className={classes.textPopupTop} variant="h3">Step 3: Privacy</Typography>
+					<Typography className={classes.textGrow} variant="h3">Step 3: Privacy</Typography>
 				</Grid>
 			) : null}
 		</Grid>
