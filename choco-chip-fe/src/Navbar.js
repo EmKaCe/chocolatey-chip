@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { AppBar, Badge, IconButton, makeStyles, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Badge, Button, IconButton, makeStyles, Toolbar, Typography } from "@material-ui/core";
 import { List, NavigateBefore, NavigateNext } from "@material-ui/icons";
 
 const useStyles = makeStyles({
@@ -19,9 +19,14 @@ const Navbar = (props) => {
 	return (
 		<AppBar position="sticky">
 			<Toolbar>
-				<IconButton edge="start" color="secondary" disabled={props.step == 1} onClick={() => props.setStep(props.step - 1)}>
-					<NavigateBefore />
-				</IconButton>
+				<Button
+					color="secondary"
+					startIcon={<NavigateBefore />}
+					disabled={props.step == 1}
+					onClick={() => props.setStep(props.step - 1)}
+				>
+					Previous
+				</Button>
 				<Typography variant="h6" className={classes.title}>
 					{props.step == 1 ? "Step 1/3: Software Selection" : null}
 					{props.step == 2 ? "Step 2/3: Office" : null}
@@ -32,9 +37,14 @@ const Navbar = (props) => {
 						<List />
 					</Badge>
 				</IconButton>
-				<IconButton edge="end" color="secondary" disabled={props.step == 3} onClick={() => props.setStep(props.step + 1)}>
-					<NavigateNext />
-				</IconButton>
+				<Button
+					color="secondary"
+					endIcon={<NavigateNext />}
+					disabled={props.step == 3}
+					onClick={() => props.setStep(props.step + 1)}
+				>
+					Next
+				</Button>
 			</Toolbar>
 		</AppBar>
 	);
