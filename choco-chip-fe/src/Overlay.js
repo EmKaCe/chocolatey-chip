@@ -68,13 +68,13 @@ const Overlay = (props) => {
 		setOpen(true);
 		setTimeout(() => {
 			setOpen(false);
-		}, 2000);
+		}, 1500);
 	};
 
 	React.useEffect(() => {
 		setTimeout(() => {
 			setOpen(false);
-		}, 2000);
+		}, 1500);
 	}, []);
 
 	React.useEffect(() => {
