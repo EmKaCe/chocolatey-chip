@@ -9,27 +9,47 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: "center",
 		flexWrap: "wrap",
 		listStyle: "none",
-		padding: theme.spacing(0.5),
-		margin: 0
+		margin: "3em",
+		padding: theme.spacing(1),
+		width: "800px"
 	},
 	chip: {
-		margin: theme.spacing(0.5)
+		margin: theme.spacing(1),
+		padding: theme.spacing(0.5)
 	}
 }));
 
 const ChipBar = (props) => {
 	const classes = useStyles();
+
+	const [selectedChips, setSelectedChips] = React.useState([]);
+
+	const handleChipClick = (name) => {
+		const chipIndex = selectedChips.indexOf(name);
+		const newSelectedChips = [...selectedChips];
+		const chip = props.chipData.find((chip) => chip.name == name);
+		if (chipIndex > -1) {
+			props.removePackages(chip.packages);
+			newSelectedChips.splice(chipIndex, 1);
+		} else {
+			props.addPackages(chip.packages);
+			newSelectedChips.push(name);
+		}
+		setSelectedChips(newSelectedChips);
+	};
+
 	return (
 		<Paper component="ul" className={classes.root}>
-			{props.chipData.map((data) => {
+			{props.chipData.map((data, index) => {
 				return (
-					<li key={data.key}>
+					<li key={index}>
 						<Chip
 							className={classes.chip}
-							icon={props.selectedChips.findIndex(x => x.key === data.key) ? <Done /> : data.icon}
-							label={data.label}
+							color={selectedChips.indexOf(data.name) > -1 ? "primary" : "default"}
+							icon={selectedChips.indexOf(data.name) > -1 ? <Done /> : data.icon}
+							label={data.name}
 							clickable={true}
-							onClick={props.handleChipClick}
+							onClick={() => handleChipClick(data.name)}
 						/>
 					</li>
 				);
@@ -39,12 +59,9 @@ const ChipBar = (props) => {
 };
 
 ChipBar.propTypes = {
-	chipData: {
-		key: PropTypes.number,
-		icon: PropTypes.element
-	},
-	handleChipClick: PropTypes.func,
-	selectedChips: PropTypes.array
+	chipData: PropTypes.array,
+	addPackages: PropTypes.func,
+	removePackages: PropTypes.func
 };
 
 export default ChipBar;

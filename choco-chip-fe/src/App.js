@@ -9,6 +9,9 @@ import Overlay from "./Overlay";
 import Office from "./Office";
 import Privacy from "./Privacy";
 import Generator from "./Generator";
+import axios from "axios";
+import ChipBar from "./ChipBar";
+import chipData from "./ChipData";
 
 const App = () => {
 	const darkTheme = createMuiTheme({
@@ -34,6 +37,35 @@ const App = () => {
 		} else {
 			newChocoPackages.splice(index, 1);
 		}
+		setChocoPackages(newChocoPackages);
+	};
+
+	const addChocoPackages = (packageNames) => {
+		const newChocoPackages = [...chocoPackages];
+		packageNames.forEach((element) => {
+			const index = chocoPackages.findIndex((chocoPackage) => chocoPackage.packageName == element);
+			if (index < 0) {
+				axios.get("/single/" + element)
+					.then((response) => {
+						newChocoPackages.push({
+							packageName: response.data.name,
+							packageTitle: response.data.title,
+							packageIcon: response.data.icon
+						});
+					});
+			}
+		});
+		setChocoPackages(newChocoPackages);
+	};
+
+	const removeChocoPackages = (packageNames) => {
+		const newChocoPackages = [...chocoPackages];
+		packageNames.forEach((element) => {
+			const index = chocoPackages.findIndex((chocoPackage) => chocoPackage.packageName == element);
+			if (index > -1) {
+				newChocoPackages.splice(index, 1);
+			}
+		});
 		setChocoPackages(newChocoPackages);
 	};
 
@@ -80,7 +112,13 @@ const App = () => {
 					<PackageSelection
 						handlePackageClick={toggleChocoPackage}
 						selectedPackages={chocoPackages}
-					/>
+					>
+						<ChipBar
+							chipData={chipData}
+							addPackages={addChocoPackages}
+							removePackages={removeChocoPackages}
+						/>
+					</PackageSelection>
 				) : null}
 				{step == 2 ? (
 					<Office

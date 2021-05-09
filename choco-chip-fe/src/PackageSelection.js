@@ -57,6 +57,7 @@ const PackageSelection = (props) => {
 					/>
 				</FormControl>
 			</Paper>
+			{props.children}
 			<Paper className={classes.searchResultBox}>
 				{
 					searchResults.length > 0 ?
@@ -85,6 +86,7 @@ const PackageSelection = (props) => {
 };
 
 PackageSelection.propTypes = {
+	children: PropTypes.node,
 	handlePackageClick: PropTypes.func,
 	selectedPackages: PropTypes.array
 };
