@@ -1,4 +1,4 @@
-const generateAll = (host, software, office, privacy) => {
+const generateAll = (software, office, privacy) => {
 	const commands = ["#Requires -RunAsAdministrator", "Set-ExecutionPolicy Bypass -Scope Process -Force"];
 
 	if (software.length > 0) {
@@ -22,8 +22,8 @@ const generateAll = (host, software, office, privacy) => {
 			}
 		});
 		commands.push("echo \"Downloading office installer and configuration...\"");
-		commands.push(`wget ${host}/office?config=${configuration} -OutFile office.xml`);
-		commands.push(`wget ${host}/office?setup=true -OutFile office.exe`);
+		commands.push(`wget https://choco.emkace.de/office?config=${configuration} -OutFile office.xml`);
+		commands.push(`wget https://choco.emkace.de/office?setup=true -OutFile office.exe`);
 		commands.push("echo \"Installing office...\"");
 		commands.push(".\\office.exe /configure office.xml");
 		commands.push("echo \"Deleting installer and configuration file...\"");
@@ -36,8 +36,8 @@ const generateAll = (host, software, office, privacy) => {
 	if (privacy.length == 3) {
 		if (privacy[0]) {
 			commands.push("echo \"Downloading recommended privacy settings...\"");
-			commands.push(`wget ${host}/privacy?oosu=software -OutFile oosu10.exe`);
-			commands.push(`wget ${host}/privacy?oosu=config -OutFile oosu10.cfg`);
+			commands.push(`wget https://choco.emkace.de/privacy?oosu=software -OutFile oosu10.exe`);
+			commands.push(`wget https://choco.emkace.de/privacy?oosu=config -OutFile oosu10.cfg`);
 			commands.push("echo \"Applying recommended privacy settings...\"");
 			commands.push(`.\\oosu10.exe \".\\oosu10.cfg\" /quiet`);
 			commands.push("echo \"Deleting remporary files...\"");

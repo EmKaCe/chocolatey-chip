@@ -75,10 +75,9 @@ app.get("/single/:name", (req, res) => {
 });
 
 app.post("/generate", (req, res) => {
-	const host = `${req.protocol}://${req.hostname}`;
 	if (req.body.data.chocolatey && req.body.data.office && req.body.data.privacy) {
 		try {
-			const script = createScript.generateAll(host, req.body.data.chocolatey, req.body.data.office, req.body.data.privacy);
+			const script = createScript.generateAll(req.body.data.chocolatey, req.body.data.office, req.body.data.privacy);
 			res.type("text/plain").status(200).send(script);
 		} catch (e) {
 			res.status(400).send(`Bad ${e} configuration.`);
