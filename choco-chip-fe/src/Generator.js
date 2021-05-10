@@ -24,7 +24,6 @@ const Generator = (props) => {
 			downloadButton.download = "choco-chip.ps1";
 			downloadButton.href = (window.webkitURL || window.URL).createObjectURL(blob);
 			downloadButton.dataset.downloadurl = ["text/plain", downloadButton.download, downloadButton.href].join(":");
-			downloadButton.click();
 		});
 	};
 
