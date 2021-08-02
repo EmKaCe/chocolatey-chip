@@ -19,11 +19,19 @@ const Generator = (props) => {
 			}
 		}).then((response) => {
 			const blob = new Blob([response.data], { type: "text/plain" });
-			const downloadButton = document.querySelector("#downloadButton");
-			downloadButton.removeEventListener("onclick", downloadConfig);
-			downloadButton.download = "choco-chip.ps1";
-			downloadButton.href = (window.webkitURL || window.URL).createObjectURL(blob);
-			downloadButton.dataset.downloadurl = ["text/plain", downloadButton.download, downloadButton.href].join(":");
+			const blobUrl = URL.createObjectURL(blob);
+			const link = document.createElement("a");
+			link.href = blobUrl;
+			link.download = "choco-chip.ps1";
+			document.body.appendChild(link);
+			link.dispatchEvent(
+				new MouseEvent("click", { 
+					bubbles: true, 
+					cancelable: true, 
+					view: window 
+				})
+			);
+			document.body.removeChild(link);
 		});
 	};
 

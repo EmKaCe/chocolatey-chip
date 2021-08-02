@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "build": "cd ./choco-chip-fe && npm run build",
+    "build": "cd ./choco-chip-fe && npm install && npm run build",
     "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
