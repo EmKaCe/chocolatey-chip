@@ -6,7 +6,7 @@ const path = require("path");
 const createScript = require("./CreateScript");
 
 const app = express();
-const port = 3000;
+const port = 3838;
 
 app.use(cors());
 app.use(express.json());
