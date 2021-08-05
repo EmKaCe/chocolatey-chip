@@ -1,5 +1,18 @@
 const generateAll = (software, office, privacy) => {
-	const commands = ["#Requires -RunAsAdministrator", "Set-ExecutionPolicy Bypass -Scope Process -Force"];
+	const commands = [
+		`param([switch]$Elevated)`,
+		`function Test-Admin {`,
+		`	$currentUser = New-Object Security.Principal.WindowsPrincipal $([Security.Principal.WindowsIdentity]::GetCurrent())`,
+		`	$currentUser.IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)`,
+		`}`,
+		`if ((Test-Admin) -eq $false)  {`,
+		`	if ($elevated) {`,
+		`	} else {`,
+		`		Start-Process powershell.exe -Verb RunAs -ArgumentList ('-noprofile -noexit -file "{0}" -elevated' -f ($myinvocation.MyCommand.Definition))`,
+		`	}`,
+		`	exit`,
+		`}`
+	];
 
 	if (software.length > 0) {
 		commands.push(`# Chocolatey Install`);
@@ -25,7 +38,7 @@ const generateAll = (software, office, privacy) => {
 		commands.push(`# Office Install`);
 		commands.push(`$officeExe = $PSScriptRoot + '\\office.exe'`);
 		commands.push(`$officeXml = $PSScriptRoot + '\\office.xml'`);
-		commands.push(`$officeExp = "\`"$officeExe\`" /configure \`"$officeXml\`""`);
+		commands.push(`$officeExp = "& \`"$officeExe\`" /configure \`"$officeXml\`""`);
 		commands.push(`echo "Downloading office installer and configuration..."`);
 		commands.push(`wget https://choco.emkace.de/office?config=${configuration} -OutFile office.xml`);
 		commands.push(`wget https://choco.emkace.de/office?setup=true -OutFile office.exe`);
@@ -43,7 +56,7 @@ const generateAll = (software, office, privacy) => {
 			commands.push(`# OOSU10`);
 			commands.push(`$oosuExe = $PSScriptRoot + '\\oosu10.exe'`);
 			commands.push(`$oosuCfg = $PSScriptRoot + '\\oosu10.cfg'`);
-			commands.push(`$oosuExp = "\`"$oosuExe\`" \`"$oosuCfg\`" /quiet"`);
+			commands.push(`$oosuExp = "& \`"$oosuExe\`" \`"$oosuCfg\`" /quiet"`);
 			commands.push(`echo "Downloading recommended privacy settings..."`);
 			commands.push(`wget https://choco.emkace.de/privacy?oosu=software -OutFile oosu10.exe`);
 			commands.push(`wget https://choco.emkace.de/privacy?oosu=config -OutFile oosu10.cfg`);
